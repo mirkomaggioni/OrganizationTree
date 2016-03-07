@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizationTree", "OrganizationTree\OrganizationTree.csproj", "{A26473F8-5A22-4C3B-BE99-B55B81D83AA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizationTreeTest", "OrganizationTreeTest\OrganizationTreeTest.csproj", "{9EEDBE3B-43D9-445A-92C2-78420FA64E16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A26473F8-5A22-4C3B-BE99-B55B81D83AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26473F8-5A22-4C3B-BE99-B55B81D83AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26473F8-5A22-4C3B-BE99-B55B81D83AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26473F8-5A22-4C3B-BE99-B55B81D83AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EEDBE3B-43D9-445A-92C2-78420FA64E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EEDBE3B-43D9-445A-92C2-78420FA64E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EEDBE3B-43D9-445A-92C2-78420FA64E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EEDBE3B-43D9-445A-92C2-78420FA64E16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
