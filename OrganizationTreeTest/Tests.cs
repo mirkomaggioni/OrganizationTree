@@ -30,7 +30,7 @@ namespace OrganizationTreeTest
         [TestMethod]
         public void getTree()
         {
-            Task<TreeNode> tree = _service.loadTree(_idTopNode);
+            Task<TreeNode> tree = _service.LoadTree(_idTopNode);
             tree.Wait();
             Assert.IsTrue(tree.Result != null);
         }

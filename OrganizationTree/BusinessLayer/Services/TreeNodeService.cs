@@ -23,27 +23,27 @@ namespace OrganizationTree.BusinessLayer.Services
             _cacheRepository = new RedisCacheRepository<TreeNode>(cache);
         }
 
-        public async Task<TreeNode> loadTree(Guid idTopNode)
+        public async Task<TreeNode> LoadTree(Guid idTopNode)
         {
-            return await getTree(idTopNode);
+            return await GetTree(idTopNode);
         }
 
-        public async Task<IEnumerable<TreeNode>> getChilds(TreeNode treeTopNode)
+        public async Task<IEnumerable<TreeNode>> GetChilds(TreeNode treeTopNode)
         {
             IEnumerable<TreeNode> childNodes = await _cacheRepository.GetListAsync(treeTopNode.Node.Id.ToString());
             if (childNodes.Count() > 0)
             {
-                return await Task.Run(() => getChildsFromCache(treeTopNode).ToList());
+                return await Task.Run(() => GetChildsFromCache(treeTopNode).ToList());
             }
             else
             {
-                IEnumerable<TreeNode> childsTopNode = await Task.Run(() => getChildsFromDatabase(treeTopNode).ToList());
+                IEnumerable<TreeNode> childsTopNode = await Task.Run(() => GetChildsFromDatabase(treeTopNode).ToList());
                 await _cacheRepository.InsertOrUpdateAsync(treeTopNode.Node.Id.ToString(), childsTopNode);
                 return childsTopNode;
             }
         }
 
-        private async Task<TreeNode> getTree(Guid idTopNode)
+        private async Task<TreeNode> GetTree(Guid idTopNode)
         {
             Node topNode = _nodeRepository.FirstOrDefault(n => n.Id == idTopNode);
             TreeNode treeTopNode = new TreeNode();
@@ -51,13 +51,13 @@ namespace OrganizationTree.BusinessLayer.Services
             if (topNode != null)
             {
                 treeTopNode.Node = topNode;
-                treeTopNode.Childs = await getChilds(treeTopNode);
+                treeTopNode.Childs = await GetChilds(treeTopNode);
             }
 
             return treeTopNode;
         }
 
-        private IEnumerable<TreeNode> getChildsFromDatabase(TreeNode parentTreeNode)
+        private IEnumerable<TreeNode> GetChildsFromDatabase(TreeNode parentTreeNode)
         {
             List<Relation> relations = _relationRepository.Find(r => r.IdParent == parentTreeNode.Node.Id).ToList();
 
@@ -67,7 +67,7 @@ namespace OrganizationTree.BusinessLayer.Services
                 childTreeNode.Node = rel.Child;
                 childTreeNode.Parent = parentTreeNode;
 
-                childTreeNode.Childs = getChildsFromDatabase(childTreeNode).ToList();
+                childTreeNode.Childs = GetChildsFromDatabase(childTreeNode).ToList();
 
                 if (childTreeNode.Childs.Count() > 0)
                 {
@@ -78,13 +78,13 @@ namespace OrganizationTree.BusinessLayer.Services
             }
         }
 
-        private IEnumerable<TreeNode> getChildsFromCache(TreeNode parentTreeNode)
+        private IEnumerable<TreeNode> GetChildsFromCache(TreeNode parentTreeNode)
         {
             parentTreeNode.Childs = _cacheRepository.GetList(parentTreeNode.Node.Id.ToString());
 
             foreach (TreeNode childTreeNode in parentTreeNode.Childs)
             {
-                childTreeNode.Childs = getChildsFromCache(childTreeNode).ToList();
+                childTreeNode.Childs = GetChildsFromCache(childTreeNode).ToList();
                 yield return childTreeNode;
             }
         }
